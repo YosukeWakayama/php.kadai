@@ -5,11 +5,34 @@ session_start();
 //0.外部ファイル読み込み
 include('functions.php');
 
-// ログイン状態のチェック
-checkSessionId();
+// ログイン状態のチェックはいらない
+// checkSessionId();
 
-$menu = menu_kanri();
+$menu = menu_taiken();
+
+// getで送信されたidを取得
+if (!isset($_GET['id'])) {
+  exit("Error");
+}
+$id = $_GET['id'];
+
+//DB接続します
+$pdo = connectToDb();
+
+//データ登録SQL作成，指定したidのみ表示する
+$sql = 'SELECT * FROM php02_table WHERE id=:id';
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$status = $stmt->execute();
+
+//データ表示
+if ($status == false) {
+  showSqlErrorMsg($stmt);
+} else {
+  $rs = $stmt->fetch();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -18,7 +41,7 @@ $menu = menu_kanri();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>user登録</title>
+  <title>todo詳細ページ</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <style>
     div {
@@ -32,7 +55,7 @@ $menu = menu_kanri();
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">user登録</a>
+      <a class="navbar-brand" href="#">todo詳細</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,30 +67,23 @@ $menu = menu_kanri();
     </nav>
   </header>
 
-  <form method="POST" action="user_insert.php">
+  <form method="post" action="nologin_select.php">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input type="name" class="form-control" id="name" name="name" placeholder="Name">
+      <label for="task">Task</label>
+      <input readonly type="text" class="form-control" id="task" name="task" placeholder="Enter task" value="<?= $rs['task'] ?>">
     </div>
     <div class="form-group">
-      <label for="lid">Login_ID</label>
-      <input type="text" class="form-control" id="lid" name="lid" placeholder="Login_ID">
+      <label for="deadline">Deadline</label>
+      <input readonly type="date" class="form-control" id="deadline" name="deadline" value="<?= $rs['deadline'] ?>">
     </div>
     <div class="form-group">
-      <label for="lpw">Login_Pass_word</label>
-      <input class="form-control" id="lpw" name="lpw" placeholder="Pass word"></textarea>
+      <label for="comment">Comment</label>
+      <textarea readonly class="form-control" id="comment" name="comment" rows="3"><?= $rs['comment'] ?></textarea>
     </div>
     <div class="form-group">
-      <label for="kanri_flg" hidden>kanri_flg</label>
-      <textarea class="kanri_flg" id="kanri_flg" name="kanri_flg" hidden>0</textarea>
+      <button class="btn btn-primary">Back</button>
     </div>
-    <div class="form-group">
-      <label for="life_flg" hidden>life_flg</label>
-      <textarea class="form-control" id="life_flg" name="life_flg" hidden>0</textarea>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    <input type="hidden" name="id" value="<?= $rs['id'] ?>">
   </form>
 
 </body>

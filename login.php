@@ -26,11 +26,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="login.php">ログインページ</a>
+                        <a class="nav-link" href="nologin_select.php">体験版ページ</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="">お試し</a>
-                    </li>
+
                 </ul>
             </div>
         </nav>

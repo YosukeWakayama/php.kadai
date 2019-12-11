@@ -1,12 +1,22 @@
 <?php
 
 include('functions.php');
+// var_dump($_POST);
+// exit("ok");
 
 //入力チェック(受信確認処理追加)
 $user_nyuryoku = connectToDb();
 
 //1. POSTデータ取得
-$user_syutoku = connectToDb();
+// $user_syutoku = connectToDb();
+{
+  $id         = $_POST['id'];
+  $name       = $_POST['name'];
+  $lid        = $_POST['lid'];
+  $lpw        = $_POST['lpw'];
+  $kanri_flg  = $_POST['kanri_flg'];
+  $life_flg   = $_POST['life_flg'];
+}
 
 //2. DB接続します(エラー処理追加)
 $pdo = connectToDb();

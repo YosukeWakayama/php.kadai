@@ -1,29 +1,18 @@
 <?php
 // セッションのスタート
 session_start();
+
 include('functions.php');
 
+$menu = menu_kanri();
 // ユーザーidの指定（今回は固定値）
-// $user_id = 3;
+$user_id = $_SESSION["id"];
+
 checkSessionId();
 //DB接続
 $pdo = connectToDb();
 
-// taskごとのいいね数カウント確認
-// $sql = "SELECT task_id, COUNT(id) AS cnt FROM like_table GROUP BY task_id";
-// $stmt = $pdo->prepare($sql);
-// $status = $stmt->execute();
-// if ($status == false) {
-//   showSqlErrorMsg($stmt);
-// } else {
-//   $result = $stmt->fetchAll();
-//   var_dump($result);
-//   exit();
-// }
-
-
 //データ表示SQL作成
-// $sql = 'SELECT * FROM php02_table';
 $sql = 'SELECT * FROM php02_table LEFT OUTER JOIN (SELECT task_id, COUNT(id) AS cnt FROM like_table GROUP BY task_id) AS likes 
 ON php02_table.id = likes.task_id';
 $stmt = $pdo->prepare($sql);
@@ -48,7 +37,6 @@ if ($status == false) {
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -67,6 +55,7 @@ if ($status == false) {
 </head>
 
 <body>
+
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">todo一覧</a>
@@ -75,23 +64,21 @@ if ($status == false) {
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="index.php">todo登録</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="select.php">todo一覧</a>
-          </li>
+          <?= $menu ?>
         </ul>
       </div>
     </nav>
   </header>
 
-  <div>
+
+
+  <div id="list">
     <ul class="list-group">
       <?= $view ?>
     </ul>
   </div>
 
 </body>
+
 
 </html>

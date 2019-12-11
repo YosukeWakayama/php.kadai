@@ -11,7 +11,7 @@ include('functions.php');
 // ログイン状態のチェック
 checkSessionId();
 
-$menu = menu();
+$menu = menu_kanri();
 
 // getで送信されたidを取得
 if (!isset($_GET)) {
@@ -55,7 +55,7 @@ if ($status == false) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>todo更新ページ</title>
+  <title>user更新ページ</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <style>
     div {
@@ -69,7 +69,7 @@ if ($status == false) {
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">todo更新</a>
+      <a class="navbar-brand" href="#">user更新</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -81,7 +81,7 @@ if ($status == false) {
     </nav>
   </header>
 
-  <form method="post" action="user_update.php">
+  <form method="POST" action="user_update.php">
     <div class="form-group">
       <label for="id">id　※変更不可</label>
       <input readonly type="text" class="form-control" id="id" name="id" value="<?= $rs['id'] ?>">
@@ -112,12 +112,6 @@ if ($status == false) {
     </div>
     <input type="hidden" name="id" value="<?= $rs['id'] ?>">
   </form>
-  <!-- "id"
-  "name"
-  "lid"
-  "lpw"
-  "kanri_flg"
-  "life_flg" -->
 
 </body>
 
