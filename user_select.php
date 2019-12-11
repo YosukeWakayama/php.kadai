@@ -1,4 +1,7 @@
 <?php
+// user_table内の一覧を表示する
+// 表示内容は「id,name,life_flg」
+
 // セッションのスタート
 session_start();
 
@@ -14,7 +17,7 @@ $menu = menu();
 $pdo = connectToDb();
 
 //２．データ登録SQL作成
-$sql = 'SELECT * FROM php02_table';
+$sql = 'SELECT * FROM user_table';
 $stmt = $pdo->prepare($sql);
 $status = $stmt->execute();
 
@@ -24,11 +27,16 @@ if ($status == false) {
   showSqlErrorMsg($stmt);
 } else {
   while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    // echo "<pre>";
+    // var_dump($result);
+    // echo "</pre>";
+    // exit("aaaaa");
     $view .= '<li class="list-group-item">';
-    $view .= '<p>' . $result['deadline'] . '-' . $result['task'] . '</p>';
-    $view .= '<a href="like_insert.php?task_id=' . $result['id'] .
-      '&user_id=' . $user_id . '" class="badge badge-primary">Like' . $result['cnt'] . '</a>';
-    $view .= '<a href="detail.php?id=' . $result['id'] . '" class="badge badge-primary">Edit</a>';
+    $view .= '<p>' ."ID=". $result['id']  . '</p>';
+    $view .= '<p>' .'User_Name=' . $result['name'] . '</p>';
+    // $view .= '<a href="like_insert.php?task_id=' . $result['id'] .
+    //   '&user_id=' . $user_id . '" class="badge badge-primary">Like' . $result['cnt'] . '</a>';
+    $view .= '<a href="user_detail.php?id=' . $result['id'] . '" class="badge badge-primary">Detail</a>';
     $view .= '<a href="delete.php?id=' . $result['id'] . '" class="badge badge-danger">Delete</a>';
     $view .= '</li>';
   }

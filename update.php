@@ -21,13 +21,16 @@ $pdo = connectToDb();
 
 //3．データ登録SQL作成
 $sql = 'UPDATE php02_table SET task=:a1, deadline=:a2, comment=:a3 WHERE id=:id';
+// var_dump($sql);
+// exit("test");
 $stmt = $pdo->prepare($sql);
 $stmt->bindValue(':a1', $task, PDO::PARAM_STR);
 $stmt->bindValue(':a2', $deadline, PDO::PARAM_STR);
 $stmt->bindValue(':a3', $comment, PDO::PARAM_STR);
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute();
-
+// var_dump($status);
+// exit("test");
 //4．データ登録処理後
 if ($status == false) {
   showSqlErrorMsg($stmt);

@@ -1,24 +1,35 @@
 <?php
 // セッションのスタート
 session_start();
-
-//0.外部ファイル読み込み
 include('functions.php');
 
-// ログイン状態のチェック
+// ユーザーidの指定（今回は固定値）
+// $user_id = 3;
 checkSessionId();
-
-$menu = menu();
-
-//1.  DB接続します
+//DB接続
 $pdo = connectToDb();
 
-//２．データ登録SQL作成
-$sql = 'SELECT * FROM php02_table';
+// taskごとのいいね数カウント確認
+// $sql = "SELECT task_id, COUNT(id) AS cnt FROM like_table GROUP BY task_id";
+// $stmt = $pdo->prepare($sql);
+// $status = $stmt->execute();
+// if ($status == false) {
+//   showSqlErrorMsg($stmt);
+// } else {
+//   $result = $stmt->fetchAll();
+//   var_dump($result);
+//   exit();
+// }
+
+
+//データ表示SQL作成
+// $sql = 'SELECT * FROM php02_table';
+$sql = 'SELECT * FROM php02_table LEFT OUTER JOIN (SELECT task_id, COUNT(id) AS cnt FROM like_table GROUP BY task_id) AS likes 
+ON php02_table.id = likes.task_id';
 $stmt = $pdo->prepare($sql);
 $status = $stmt->execute();
 
-//３．データ表示
+//データ表示
 $view = '';
 if ($status == false) {
   showSqlErrorMsg($stmt);
@@ -26,6 +37,7 @@ if ($status == false) {
   while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $view .= '<li class="list-group-item">';
     $view .= '<p>' . $result['deadline'] . '-' . $result['task'] . '</p>';
+    // いいねボタン
     $view .= '<a href="like_insert.php?task_id=' . $result['id'] .
       '&user_id=' . $user_id . '" class="badge badge-primary">Like' . $result['cnt'] . '</a>';
     $view .= '<a href="detail.php?id=' . $result['id'] . '" class="badge badge-primary">Edit</a>';
@@ -33,8 +45,8 @@ if ($status == false) {
     $view .= '</li>';
   }
 }
-
 ?>
+
 
 
 <!DOCTYPE html>
@@ -55,7 +67,6 @@ if ($status == false) {
 </head>
 
 <body>
-
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">todo一覧</a>
@@ -64,7 +75,12 @@ if ($status == false) {
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <?= $menu ?>
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">todo登録</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="select.php">todo一覧</a>
+          </li>
         </ul>
       </div>
     </nav>
