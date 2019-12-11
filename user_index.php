@@ -32,7 +32,7 @@ $menu = menu();
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">todo登録</a>
+      <a class="navbar-brand" href="#">User登録</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -44,18 +44,26 @@ $menu = menu();
     </nav>
   </header>
 
-  <form method="post" action="insert.php">
+  <form method="POST" action="user_insert.php">
     <div class="form-group">
-      <label for="task">Task</label>
-      <input type="text" class="form-control" id="task" name="task" placeholder="Enter task">
+      <label for="name">Name</label>
+      <input type="name" class="form-control" id="name" name="name" placeholder="Name">
     </div>
     <div class="form-group">
-      <label for="deadline">Deadline</label>
-      <input type="date" class="form-control" id="deadline" name="deadline">
+      <label for="lid">Login_ID</label>
+      <input type="text" class="form-control" id="lid" name="lid" placeholder="Login_ID">
     </div>
     <div class="form-group">
-      <label for="comment">Comment</label>
-      <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+      <label for="lpw">Login_Pass_word</label>
+      <input class="form-control" id="lpw" name="lpw" placeholder="Pass word"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="kanri_flg" hidden>kanri_flg</label>
+      <textarea class="kanri_flg" id="kanri_flg" name="kanri_flg" hidden>0</textarea>
+    </div>
+    <div class="form-group">
+      <label for="life_flg" hidden>life_flg</label>
+      <textarea class="form-control" id="life_flg" name="life_flg" hidden>0</textarea>
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Submit</button>

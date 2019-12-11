@@ -37,7 +37,7 @@ if ($status == false) {
     // $view .= '<a href="like_insert.php?task_id=' . $result['id'] .
     //   '&user_id=' . $user_id . '" class="badge badge-primary">Like' . $result['cnt'] . '</a>';
     $view .= '<a href="user_detail.php?id=' . $result['id'] . '" class="badge badge-primary">Detail</a>';
-    $view .= '<a href="delete.php?id=' . $result['id'] . '" class="badge badge-danger">Delete</a>';
+    $view .= '<a href="user_delete.php?id=' . $result['id'] . '" class="badge badge-danger">Delete</a>';
     $view .= '</li>';
   }
 }

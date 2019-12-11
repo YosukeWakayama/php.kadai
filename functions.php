@@ -41,3 +41,29 @@ function menu()
   $menu .= '<li class="nav-item"><a class="nav-link" href="logout.php">ログアウト</a></li>';
   return $menu;
 }
+
+
+function user_nyuryoku(){
+if (
+  !isset($_POST['id']) || $_POST['id'] == '' ||
+  !isset($_POST['name']) || $_POST['name'] == '' ||
+  !isset($_POST['lid']) || $_POST['lid'] == '' ||
+  !isset($_POST['lpw']) || $_POST['lpw'] == '' ||
+  !isset($_POST['kanri_flg']) || $_POST['kanri_flg'] == '' ||
+  !isset($_POST['life_flg']) || $_POST['life_flg'] == ''
+) {
+  exit('ParamError');
+}
+}
+
+
+//1. POSTデータ取得
+function user_syutoku(){
+$id         = $_POST['id'];
+$name       = $_POST['name'];
+$lid        = $_POST['lid'];
+$lpw        = $_POST['lpw'];
+$kanri_flg  = $_POST['kanri_flg'];
+$life_flg   = $_POST['life_flg'];
+}
+
