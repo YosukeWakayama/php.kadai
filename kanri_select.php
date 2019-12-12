@@ -54,7 +54,7 @@ if ($status == false) {
   </style>
 </head>
 
-<body>
+<body style="background-color: lightskyblue;">
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

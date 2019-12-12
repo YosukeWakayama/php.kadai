@@ -33,8 +33,8 @@ if ($status == false) {
     // echo "</pre>";
     // exit("aaaaa");
     $view .= '<li class="list-group-item">';
-    $view .= '<p>' ."ID=". $result['id']  . '</p>';
-    $view .= '<p>' .'User_Name=' . $result['name'] . '</p>';
+    $view .= '<p>' . "ID=" . $result['id']  . '</p>';
+    $view .= '<p>' . 'User_Name=' . $result['name'] . '</p>';
     // $view .= '<a href="like_insert.php?task_id=' . $result['id'] .
     //   '&user_id=' . $user_id . '" class="badge badge-primary">Like' . $result['cnt'] . '</a>';
     $view .= '<a href="user_detail.php?id=' . $result['id'] . '" class="badge badge-primary">Detail</a>';
@@ -63,7 +63,7 @@ if ($status == false) {
   </style>
 </head>
 
-<body>
+<body style="background-color: lightskyblue;">
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -88,5 +88,3 @@ if ($status == false) {
 </body>
 
 </html>
-
-

@@ -21,14 +21,14 @@ $menu = menu();
     <title>todo登録</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <style>
-        div{
+        div {
             padding: 10px;
-            font-size:16px;
-            }
+            font-size: 16px;
+        }
     </style>
 </head>
 
-<body>
+<body style="background-color: darkorange;">
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,7 +38,7 @@ $menu = menu();
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <?=$menu?>
+                    <?= $menu ?>
                 </ul>
             </div>
         </nav>
