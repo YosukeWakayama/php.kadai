@@ -27,15 +27,21 @@ $like_count = $stmt->fetch();
 }
  
 // エラーでない場合，取得した件数を変数に入れる
-
+// var_dump($_SESSION["kanri_flg"]);
+// exit();
 // いいねするSQLを作成
+if($_SESSION["kanri_flg"] == 1){
+    $sql = 'INSERT INTO like_table (id, user_id, task_id, created_at)
+  VALUES(NULL, :a1, :a2, sysdate())';
+  
+}else{
 if ($like_count[0] != 0) {  
   $sql = 'DELETE FROM like_table WHERE user_id=:a1 AND task_id=:a2';
 } else {  
   $sql = 'INSERT INTO like_table (id, user_id, task_id, created_at)
   VALUES(NULL, :a1, :a2, sysdate())';
 }
-
+}
 // SQL実行
 
 $stmt = $pdo->prepare($sql);
