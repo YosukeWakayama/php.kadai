@@ -1,6 +1,9 @@
 <?php
 include('functions.php');
 
+// ログイン状態のチェック
+checkSessionId();
+
 //GETデータ取得
 $id   = $_GET['id'];
 

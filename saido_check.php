@@ -1,38 +1,33 @@
-<?php
-
-// user_selectのユーザー 一覧からユーザーをセレクト。
-// 特定ユーザーのuser_tableカラム内の情報を取得、編集ができるページ
+<?
 // セッションのスタート
 session_start();
 
 //0.外部ファイル読み込み
 include('functions.php');
 
-// ログイン状態のチェック
-checkSessionId();
-// var_dump(checkSessionId());
-// exit("aaa");
-
 $menu = menu_kanri();
 
 // getで送信されたidを取得
-if (!isset($_GET)) {
+if (!isset($_POST)) {
   exit("Error");
 }
 
 //DB接続します
 $pdo = connectToDb();
-$id = $_GET["id"];
-
+$lid = $_POST["lid"];
+$lpw = $_POST["lpw"];
+// var_dump($_POST);
+// exit();
 // var_dump($id);
 
 
 
 
 //データ登録SQL作成，指定したidのみ表示する
-$sql = 'SELECT * FROM user_table WHERE id=:id';
+$sql = 'SELECT * FROM user_table WHERE lid=:lid ,lpw=:lpw';
 $stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+$stmt->bindValue(':lid', $lid, PDO::PARAM_INT);
+$stmt->bindValue(':lpw', $lpw, PDO::PARAM_INT);
 $status = $stmt->execute();
 // var_dump($status);
 // exit("ok");
@@ -41,12 +36,16 @@ if ($status == false) {
   showSqlErrorMsg($stmt);
 } else {
   $rs = $stmt->fetch();
-  // echo "<pre>";
-  // var_dump($rs);
-  // echo "</pre>";
-
-  // exit("ok");
+  var_export($rs);
 }
+
+// if ($rs["lid"] == ) { } else {
+//   $_SESSION["erorr"] = 4;
+//   header("Location: erorr.php");
+// }
+
+
+
 ?>
 
 
@@ -82,39 +81,76 @@ if ($status == false) {
       </div>
     </nav>
   </header>
-
-  <form method="POST" action="user_update.php">
-    <div class="form-group">
+<form>
+  <!-- <form method="POST" action="user_update"> -->
+    <!-- <div class="form-group">
       <label for="id">id　※変更不可</label>
       <input readonly type="text" class="form-control" id="id" name="id" value="<?= $rs['id'] ?>">
     </div>
     <div class="form-group">
       <label for="name">name</label>
       <input type="text" class="form-control" id="name" name="name" value="<?= $rs['name'] ?>">
+    </div> -->
+    <!-- 正解Login-id -->
+    <div class="form-group">
+      <label for="lid">正解Login_ID</label>
+      <input readonly type="text" class="form-control" id="true_lid" value="<?= $rs['lid'] ?>">
     </div>
+    <!-- 入力Login-id -->
     <div class="form-group">
       <label for="lid">Login_ID</label>
-      <input type="text" class="form-control" id="lid" name="lid" value="<?= $rs['lid'] ?>">
+      <input type="text" class="form-control" id="lid" name="lid">
     </div>
+    <!-- 正解Login-pass -->
+    <div class="form-group">
+      <label for="lpw">正解Login_Pass_word</label>
+      <input readonly type="text" class="form-control" id="true_lpw" value="<?= $rs['lpw'] ?>">
+    </div>
+    <!-- 入力Login-pass -->
     <div class="form-group">
       <label for="lpw">Login_Pass_word</label>
-      <input type="text" class="form-control" id="lpw" name="lpw" value="<?= $rs['lpw'] ?>">
+      <input type="text" class="form-control" id="lpw" name="lpw">
     </div>
-    <div class="form-group">
+    <div class="form-group" hidden>
       <label for="kanri_flg">kanri_flg　※0=一般ユーザー、1=管理者</label>
       <input type="text" class="form-control" id="kanri_flg" name="kanri_flg" value="<?= $rs['kanri_flg'] ?>">
     </div>
-    <div class="form-group">
+    <div class="form-group" hidden>
       <label for="life_flg">life_flg　※0=在籍中 1=退会済み</label>
-      <input type="text" class="form-control" id="life_flg" name="life_flg" value="<?= $rs['life_flg'] ?>">
+      <input type="text" class="form-control" id="life_flg" name="life_flg" value=0>
     </div>
+
 
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-    <input type="hidden" name="id" value="<?= $rs['id'] ?>">
   </form>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  $(function() {
+    //ここに自分の処理を追加! 
+
+    // console.log($("true_lid").value());
+
+
+    const t_val_lid = document.getElementById('true_lid').value;
+    console.log(t_val_lid);
+    const val_lid = document.getElementById('lid').value;
+    console.log(val_lid);
+
+    $(".btn btn-primary").on("click", function() {
+      if (t_val_lid == val_lid) {
+        alert.log("ok");
+      } else {
+        alert.log("ng");
+      }
+    });
+
+
+
+  });
+</script>
 
 </html>

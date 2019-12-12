@@ -23,9 +23,9 @@ function showSqlErrorMsg($stmt)
 
 // SESSIONチェック＆リジェネレイト
 function checkSessionId () {
-if (!isset($_SESSION['session_id']) ||
-$_SESSION['session_id']!=session_id()){ 
-  header('Location: login.php'); 
+if (!isset($_SESSION['session_id']) ||$_SESSION['session_id']!=session_id()){ 
+  $_SESSION["erorr"]=3;
+  header('Location: erorr.php'); 
   } else {
 session_regenerate_id(true); 
 $_SESSION['session_id'] = session_id();
@@ -48,6 +48,9 @@ function menu_taiken()
   $menu = 
   '<li class="nav-item">
     <a class="nav-link" href="nologin_select.php">todo一覧</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="shinki.php">新規登録</a>
   </li>';
   $menu .= 
   '<li class="nav-item">

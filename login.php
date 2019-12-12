@@ -26,7 +26,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="nologin_select.php">体験版ページ</a>
+                        <a class="nav-link" href="nologin_select.php">体験版</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shinki.php">新規登録</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="saido.php">再入会</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">ログアウト</a>
                     </li>
 
                 </ul>

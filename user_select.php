@@ -9,7 +9,8 @@ session_start();
 include('functions.php');
 
 // ログイン状態のチェック
-// checkSessionId();
+
+checkSessionId();
 
 $menu = menu_kanri();
 

@@ -16,6 +16,8 @@ $user_nyuryoku = connectToDb();
   $lpw        = $_POST['lpw'];
   $kanri_flg  = $_POST['kanri_flg'];
   $life_flg   = $_POST['life_flg'];
+  // var_dump($id);
+  // exit("test");
 }
 
 //2. DB接続します(エラー処理追加)
@@ -33,8 +35,7 @@ $stmt->bindValue(':a5', $kanri_flg, PDO::PARAM_INT);
 $stmt->bindValue(':a6', $life_flg,  PDO::PARAM_INT);
 $stmt->bindValue(':id', $id,        PDO::PARAM_INT);
 $status = $stmt->execute();
-// var_dump($status);
-// exit("test");
+
 
 //4．データ登録処理後
 if ($status == false) {
