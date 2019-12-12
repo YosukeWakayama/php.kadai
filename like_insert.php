@@ -13,7 +13,6 @@ $pdo = connectToDb();
 // var_dump($user_id);
 // exit();
 
-
 // いいね状態のチェック
 
 $sql = 'SELECT COUNT(*) FROM like_table WHERE user_id=:a1 AND task_id=:a2';

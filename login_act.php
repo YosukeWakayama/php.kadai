@@ -25,18 +25,13 @@ $status = $stmt->execute();
 //3. SQL実行時にエラーがある場合
 if ($status == false) {
   showSqlErrorMsg($stmt);
-}elseif($status != false){
-  $_SESSION["erorr"] = 1;
-  echo $_SESSION["erorr"];
-  header("Location: erorr.php");
-exit();
 }
-
 // var_aadump($status);
 // exit("ok");
 //4. データを取得した場合
 $val = $stmt->fetch();
-
+// var_dump($val);
+// exit("ok");
 //5. 該当レコードがあればSESSIONに値を代入
 if ($val['kanri_flg'] == 1) {
   // 管理者
@@ -73,8 +68,19 @@ if ($val['kanri_flg'] == 1) {
   }
 }else{
   //ログイン失敗の場合はログイン画面へ戻る
-$_SESSION["erorr"] = 1;
+$_SESSION["erorr"] = 4;
 header("Location: erorr.php");
 }
 
 exit();
+
+
+
+// IF (User IDが存在してたら ){
+// // 細かいカテゴリ確認。
+// IF（管理者だったら）  {User一覧ページへ}
+// else それ以外だったら  {Todo一覧ページへ}
+// }
+
+// else,それ以外だったら
+// {Loginページへ飛ぶ}

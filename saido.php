@@ -1,18 +1,3 @@
-<?php
-// セッションのスタート
-session_start();
-
-//0.外部ファイル読み込み
-include('functions.php');
-
-$menu = menu_kanri();
-
-//DB接続します
-$pdo = connectToDb();
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -20,7 +5,7 @@ $pdo = connectToDb();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>再入会ページ</title>
+  <title>再入会</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <style>
     div {
@@ -31,6 +16,7 @@ $pdo = connectToDb();
 </head>
 
 <body>
+
 
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -49,29 +35,28 @@ $pdo = connectToDb();
           <li class="nav-item">
             <a class="nav-link" href="saido.php">再入会</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">ログアウト</a>
+          </li>
+
         </ul>
       </div>
     </nav>
   </header>
 
-  <form method="POST" action="saido_check.php">
-    <!-- <div class="form-group">
-      <label for="id">idを入力してください</label>
-      <input type="text" class="form-control" id="id" name="id">
-    </div> -->
+  <form method="POST" action="saido_act.php">
     <div class="form-group">
-      <label for="id">Login-idを入力してください</label>
+      <label for="lid">LoginID</label>
       <input type="text" class="form-control" id="lid" name="lid">
     </div>
     <div class="form-group">
-      <label for="id">Login-Passを入力してください</label>
-      <input type="text" class="form-control" id="lpw" name="lpw">
+      <label for="lpw">Pass</label>
+      <input type="password" class="form-control" id="lpw" name="lpw">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
-
 </body>
 
 </html>
